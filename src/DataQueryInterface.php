@@ -53,21 +53,6 @@ class DataQueryInterface
 		}
 	}
 
-	public function test(array $request)
-	{
-		$parser = new RequestParser($this->resolver);
-
-		list($statement, $feature) = $parser->parse($request);
-
-		$planer = $this->getPlaner($statement);
-
-		$plan = $planer->getExecutionPlan($feature);
-
-		$executor = $this->getExecutor($statement);
-
-		return;
-	}
-
 	public function execute(array $request): Generator
 	{
 		$parser = new RequestParser($this->resolver);
