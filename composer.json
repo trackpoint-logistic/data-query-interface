@@ -1,0 +1,14 @@
+{
+	"name": "trackpoint/data-query-interface",
+	"description": "Library for relation between API interfaces",
+	"type": "library",
+	"require": {
+		"php-ds/php-ds": "dev-master"
+	},
+	"autoload": {
+		"psr-4": {
+			"Trackpoint\\DataQueryInterface\\": "src/"
+		}
+	},
+	"scripts": {}
+}
