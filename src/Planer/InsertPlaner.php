@@ -4,24 +4,17 @@ declare(strict_types=1);
 
 namespace Trackpoint\DataQueryInterface\Planer;
 
-
 use Trackpoint\DataQueryInterface\InterfaceFeature;
-use Trackpoint\DataQueryInterface\DQL;
-
-
 use Trackpoint\DataQueryInterface\Resolver\InterfaceResolver;
-
 use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 use Trackpoint\DataQueryInterface\Statement\InsertStatement;
 use Trackpoint\DataQueryInterface\Statement\InsertJoin;
-
-
 use Trackpoint\DataQueryInterface\Metadata\AttributeMetadata;
 
 use Ds\Deque;
 use Ds\Queue;
 
-class InsertPlaner
+class InsertPlaner implements PlanerInterface
 {
 
 	protected InterfaceResolver $resolver;
@@ -31,7 +24,7 @@ class InsertPlaner
 		$this->resolver = $resolver;
 	}
 
-	public function getExecutionPlan(InterfaceFeature $feature)/* : StatementInterface */
+	public function getExecutionPlan(InterfaceFeature $feature): StatementInterface
 	{
 		$priority = new Deque([$feature]);
 		$processing = new Queue([$feature]);

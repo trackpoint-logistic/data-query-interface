@@ -18,7 +18,7 @@ use Trackpoint\DataQueryInterface\Statement\InnerJoin;
 
 use Ds\Queue;
 
-class SelectPlaner
+class SelectPlaner implements PlanerInterface
 {
 
 	protected InterfaceResolver $resolver;

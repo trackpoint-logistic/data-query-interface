@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace Trackpoint\DataQueryInterface;
 
 use Trackpoint\DataQueryInterface\Resolver\InterfaceResolver;
-use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 
+use Trackpoint\DataQueryInterface\Planer\PlanerInterface;
 use Trackpoint\DataQueryInterface\Planer\SelectPlaner;
 use Trackpoint\DataQueryInterface\Planer\UpdatePlaner;
 use Trackpoint\DataQueryInterface\Planer\InsertPlaner;
@@ -29,7 +29,7 @@ class DataQueryInterface
 		$this->resolver = $resolver;
 	}
 
-	private function getPlaner($statement)
+	private function getPlaner($statement): PlanerInterface
 	{
 		switch ($statement) {
 			case DQL::SELECT:

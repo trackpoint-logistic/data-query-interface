@@ -6,23 +6,12 @@ namespace Trackpoint\DataQueryInterface\Planer;
 
 
 use Trackpoint\DataQueryInterface\InterfaceFeature;
-use Trackpoint\DataQueryInterface\DQL;
-
-
 use Trackpoint\DataQueryInterface\Resolver\InterfaceResolver;
-
 use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 use Trackpoint\DataQueryInterface\Statement\SelectStatement;
-
-use Trackpoint\DataQueryInterface\Statement\InnerJoin;
-use Trackpoint\DataQueryInterface\Statement\LeftJoin;
-
 use Trackpoint\DataQueryInterface\Statement\UpdateJoin;
 use Trackpoint\DataQueryInterface\Statement\UpdateStatement;
-use Trackpoint\DataQueryInterface\Expression\Condition;
 use Trackpoint\DataQueryInterface\Expression\EqualExpression;
-
-use Generator;
 
 class UpdatePlaner extends SelectPlaner
 {
