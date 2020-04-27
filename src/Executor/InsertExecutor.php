@@ -8,10 +8,20 @@ use Trackpoint\DataQueryInterface\Statement\JoinInterface;
 use Trackpoint\DataQueryInterface\Statement\InsertStatement;
 use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 
+use Psr\Log\LoggerInterface;
+
 use Generator;
 
 class InsertExecutor implements ExecutorInterface
 {
+
+	private LoggerInterface $logger;
+
+	public function __construct(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+	}
+
 
 	private function proceed(StatementInterface $node): Generator
 	{

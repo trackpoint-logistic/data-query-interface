@@ -11,17 +11,21 @@ use Trackpoint\DataQueryInterface\Statement\InsertStatement;
 use Trackpoint\DataQueryInterface\Statement\InsertJoin;
 use Trackpoint\DataQueryInterface\Metadata\AttributeMetadata;
 
+use Psr\Log\LoggerInterface;
+
 use Ds\Deque;
 use Ds\Queue;
 
 class InsertPlaner implements PlanerInterface
 {
 
-	protected InterfaceResolver $resolver;
+	private InterfaceResolver $resolver;
+	private LoggerInterface $logger;
 
-	public function __construct(InterfaceResolver $resolver)
+	public function __construct(InterfaceResolver $resolver, LoggerInterface $logger)
 	{
 		$this->resolver = $resolver;
+		$this->logger = $logger;
 	}
 
 	public function getExecutionPlan(InterfaceFeature $feature): StatementInterface

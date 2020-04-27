@@ -8,10 +8,18 @@ use Trackpoint\DataQueryInterface\Statement\JoinInterface;
 use Trackpoint\DataQueryInterface\Statement\SelectStatement;
 use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 
+use Psr\Log\LoggerInterface;
+
 use Generator;
 
 class SelectExecutor implements ExecutorInterface
 {
+	private LoggerInterface $logger;
+
+	public function __construct(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+	}
 
 	private function proceed(StatementInterface $node): Generator
 	{

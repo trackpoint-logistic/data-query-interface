@@ -16,16 +16,20 @@ use Trackpoint\DataQueryInterface\Statement\SelectStatement;
 use Trackpoint\DataQueryInterface\Statement\LeftJoin;
 use Trackpoint\DataQueryInterface\Statement\InnerJoin;
 
+use Psr\Log\LoggerInterface;
+
 use Ds\Queue;
 
 class SelectPlaner implements PlanerInterface
 {
 
-	protected InterfaceResolver $resolver;
+	private InterfaceResolver $resolver;
+	private LoggerInterface $logger;
 
-	public function __construct(InterfaceResolver $resolver)
+	public function __construct(InterfaceResolver $resolver, LoggerInterface $logger)
 	{
 		$this->resolver = $resolver;
+		$this->logger = $logger;
 	}
 
 	protected function getExecutionQueue(InterfaceFeature $feature): array

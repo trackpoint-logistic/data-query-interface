@@ -13,12 +13,17 @@ use Trackpoint\DataQueryInterface\Statement\UpdateJoin;
 use Trackpoint\DataQueryInterface\Statement\UpdateStatement;
 use Trackpoint\DataQueryInterface\Expression\EqualExpression;
 
+use Psr\Log\LoggerInterface;
+
 class UpdatePlaner extends SelectPlaner
 {
 
-	public function __construct(InterfaceResolver $resolver)
+	private LoggerInterface $logger;
+
+	public function __construct(InterfaceResolver $resolver, LoggerInterface $logger)
 	{
-		parent::__construct($resolver);
+		parent::__construct($resolver, $logger);
+		$this->logger = $logger;
 	}
 
 	public function getExecutionPlan(InterfaceFeature $feature): StatementInterface

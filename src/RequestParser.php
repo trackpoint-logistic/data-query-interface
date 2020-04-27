@@ -8,6 +8,8 @@ use Trackpoint\DataQueryInterface\Resolver\InterfaceResolver;
 
 use Trackpoint\DataQueryInterface\Expression\ExpressionBuilder;
 
+use Psr\Log\LoggerInterface;
+
 use Ds\Map;
 use Ds\Set;
 use Exception;
@@ -17,10 +19,12 @@ class RequestParser
 {
 
 	private InterfaceResolver $resolver;
+	private LoggerInterface $logger;
 
-	public function __construct(InterfaceResolver $resolver)
+	public function __construct(InterfaceResolver $resolver, LoggerInterface $logger)
 	{
 		$this->resolver = $resolver;
+		$this->logger = $logger;
 	}
 
 	private function getExpressions(array $expressions)

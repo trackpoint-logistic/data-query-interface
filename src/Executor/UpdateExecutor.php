@@ -10,12 +10,20 @@ use Trackpoint\DataQueryInterface\Statement\UpdateStatement;
 use Trackpoint\DataQueryInterface\Statement\SelectStatement;
 use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 
+use Psr\Log\LoggerInterface;
+
 use Exception;
 use Generator;
 
 class UpdateExecutor implements ExecutorInterface
 {
 
+	private LoggerInterface $logger;
+
+	public function __construct(LoggerInterface $logger)
+	{
+		$this->logger = $logger;
+	}
 
 	private function proceed(StatementInterface $node): Generator
 	{

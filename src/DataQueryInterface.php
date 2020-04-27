@@ -17,27 +17,34 @@ use Trackpoint\DataQueryInterface\Executor\SelectExecutor;
 use Trackpoint\DataQueryInterface\Executor\UpdateExecutor;
 use Trackpoint\DataQueryInterface\Executor\InsertExecutor;
 
+
+use Psr\Log\LoggerInterface;
+
 use Generator;
+
+
 
 class DataQueryInterface
 {
 
 	private InterfaceResolver $resolver;
+	private LoggerInterface $logger;
 
-	public function __construct(InterfaceResolver $resolver)
+	public function __construct(InterfaceResolver $resolver, LoggerInterface $logger)
 	{
 		$this->resolver = $resolver;
+		$this->logger = $logger;
 	}
 
 	private function getPlaner($statement): PlanerInterface
 	{
 		switch ($statement) {
 			case DQL::SELECT:
-				return new SelectPlaner($this->resolver);
+				return new SelectPlaner($this->resolver, $this->logger);
 			case DQL::UPDATE:
-				return new UpdatePlaner($this->resolver);
+				return new UpdatePlaner($this->resolver, $this->logger);
 			case DQL::INSERT:
-				return new InsertPlaner($this->resolver);
+				return new InsertPlaner($this->resolver, $this->logger);
 		}
 	}
 
@@ -45,17 +52,17 @@ class DataQueryInterface
 	{
 		switch ($statement) {
 			case DQL::SELECT:
-				return new SelectExecutor();
+				return new SelectExecutor($this->logger);
 			case DQL::UPDATE:
-				return new UpdateExecutor();
+				return new UpdateExecutor($this->logger);
 			case DQL::INSERT:
-				return new InsertExecutor();
+				return new InsertExecutor($this->logger);
 		}
 	}
 
 	public function execute(array $request): Generator
 	{
-		$parser = new RequestParser($this->resolver);
+		$parser = new RequestParser($this->resolver, $this->logger);
 
 		list($statement, $feature) = $parser->parse($request);
 
