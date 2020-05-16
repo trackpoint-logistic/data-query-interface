@@ -8,7 +8,7 @@ use Ds\Map;
 
 class Condition
 {
-	private FitInterface $expression;
+	private ?FitInterface $expression = null;
 	private int $depth = 0;
 	private Map $immutableExpressions;
 
@@ -71,6 +71,10 @@ class Condition
 
 	public function fit(array $tuple): bool
 	{
+		if ($this->expression == null) {
+			return true;
+		}
+
 		return $this->expression->fit($tuple);
 	}
 }
