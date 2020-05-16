@@ -105,7 +105,7 @@ class RequestParser
 	{
 		$statement   = $request[DQL::STATEMENT];
 
-		$expressions = $this->getExpressions($request[DQL::EXPRESSIONS]);
+		$expressions = $this->getExpressions($request[DQL::EXPRESSIONS] ?? []);
 		$returning   = new Set($request[DQL::RETURNING] ?? []);
 		$data        = new Map($request[DQL::DATA] ?? []);
 
