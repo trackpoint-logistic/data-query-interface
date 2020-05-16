@@ -25,7 +25,7 @@ class Condition
 			$this->immutableExpressions->put($expression->getName(), $expression);
 		}
 
-		if (isset($this->expression) == false) {
+		if ($this->expression == null) {
 			$this->expression = $expression;
 		} else {
 			$this->expression = new LogicalAND($expression, $this->expression);
