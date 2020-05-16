@@ -6,23 +6,8 @@ namespace Trackpoint\DataQueryInterface\Metadata;
 
 use Ds\Map;
 
-class InterfaceMetadata
+interface InterfaceMetadata
 {
-
-	private Map $attributes;
-
-	public function __construct()
-	{
-		$this->attributes = new Map();
-	}
-
-	public function getAttribute($name): AttributeMetadata
-	{
-		return $this->attributes->get($name);
-	}
-
-	public function getAttributes(): Map
-	{
-		return $this->attributes;
-	}
+	public function getAttribute($name): AttributeMetadata;
+	public function getAttributes(): Map;
 }
