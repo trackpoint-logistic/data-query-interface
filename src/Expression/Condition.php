@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace Trackpoint\DataQueryInterface\Expression;
 
 use Ds\Map;
+use IteratorAggregate;
 
-class Condition
+class Condition implements IteratorAggregate
 {
 	private ?FitInterface $expression = null;
 	private int $depth = 0;
@@ -76,5 +77,20 @@ class Condition
 		}
 
 		return $this->expression->fit($tuple);
+	}
+
+	public function getIterator()
+	{
+		$expression = $this->expression;
+
+		while ($expression) {
+			if ($expression instanceof LogicalAND) {
+				yield $expression->getLeft();
+				$expression = $expression->getRight();
+			} else {
+				yield $expression;
+				break;
+			}
+		}
 	}
 }
