@@ -44,13 +44,11 @@ class UpdateJoin implements JoinInterface
 
 	public function merge(Generator $right): Generator
 	{
-		error_log('UpdateJoin');
 		$data = $this->left->getData()->toArray();
 		$condition = $this->left->getCondition();
 
 		foreach ($right as $right_tuple) {
 			if ($this->dataExistsAndDifferent($data, $right_tuple)) {
-				error_log('UpdateJoin dataExistsAndDifferent');
 				$condition->setImmutableExpressionConstantValue($right_tuple);
 
 				$left = $this->left->update(

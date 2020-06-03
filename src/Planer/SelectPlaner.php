@@ -136,7 +136,6 @@ class SelectPlaner implements PlanerInterface
 
 	public function getExecutionPlan(InterfaceFeature $feature): StatementInterface
 	{
-		error_log('getExecutionPlan');
 		$feature = $this->getEntryFeature($feature);
 		$queue = $this->getExecutionQueue($feature);
 
