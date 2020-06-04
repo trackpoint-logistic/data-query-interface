@@ -12,6 +12,6 @@ class EqualExpression extends Expression
 			return false;
 		}
 
-		return $this->disjunction && ($tuple[$this->name] == $this->constant);
+		return !$this->disjunction && ($tuple[$this->name] == $this->constant);
 	}
 }

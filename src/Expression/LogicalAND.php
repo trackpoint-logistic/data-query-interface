@@ -28,6 +28,6 @@ class LogicalAND implements FitInterface
 
 	public function fit(array $tuple): bool
 	{
-		return $this->left->fit($tuple) == true && $this->right->fit($tuple);
+		return $this->left->fit($tuple) && $this->right->fit($tuple);
 	}
 }
