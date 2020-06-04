@@ -12,11 +12,13 @@ class Condition implements IteratorAggregate
 	private ?FitInterface $expression = null;
 	private int $depth = 0;
 	private Map $immutableExpressions;
+	private Map $expressions;
 
 	public function __construct()
 	{
 
 		$this->immutableExpressions = new Map();
+		$this->expressions = new Map();
 	}
 
 	public function add(ExpressionInterface $expression, bool $immutable = false): void
@@ -50,6 +52,11 @@ class Condition implements IteratorAggregate
 		}
 
 		return $this;
+	}
+
+	public function getExpressionByName(string $name): ?Expression
+	{
+		return $this->expressions->get($name, null);
 	}
 
 	/* 	public function getExpressionNameConstant()
