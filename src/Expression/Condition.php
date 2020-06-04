@@ -34,6 +34,8 @@ class Condition implements IteratorAggregate
 			$this->expression = new LogicalAND($expression, $this->expression);
 		}
 
+		$this->expressions->put($expression->getName(), $expression);
+
 		$this->depth++;
 	}
 
