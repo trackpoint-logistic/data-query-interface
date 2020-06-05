@@ -23,8 +23,8 @@ use Ds\Queue;
 class SelectPlaner implements PlanerInterface
 {
 
-	private InterfaceResolver $resolver;
-	private LoggerInterface $logger;
+	protected InterfaceResolver $resolver;
+	protected LoggerInterface $logger;
 
 	public function __construct(InterfaceResolver $resolver, LoggerInterface $logger)
 	{

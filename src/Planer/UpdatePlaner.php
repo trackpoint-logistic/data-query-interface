@@ -18,12 +18,9 @@ use Psr\Log\LoggerInterface;
 class UpdatePlaner extends SelectPlaner
 {
 
-	private LoggerInterface $logger;
-
 	public function __construct(InterfaceResolver $resolver, LoggerInterface $logger)
 	{
 		parent::__construct($resolver, $logger);
-		$this->logger = $logger;
 	}
 
 	public function getExecutionPlan(InterfaceFeature $feature): StatementInterface

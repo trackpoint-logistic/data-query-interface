@@ -9,6 +9,5 @@ use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 
 interface PlanerInterface
 {
-
 	public function getExecutionPlan(InterfaceFeature $feature): StatementInterface;
 }
