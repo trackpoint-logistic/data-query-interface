@@ -88,7 +88,7 @@ class BinarySearchTree implements IteratorAggregate
 	public function getIterator()
 	{
 
-		$queue = new \Ds\Queue();
+		$queue = new Queue();
 		$queue->push($this->root);
 
 		while ($queue->isEmpty() == false) {
