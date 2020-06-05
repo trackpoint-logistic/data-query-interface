@@ -28,6 +28,8 @@ class UpdatePlaner extends SelectPlaner
 		$begin = $this->getEntryFeature($feature);
 
 		$queue = $this->getExecutionQueue($begin);
+		error_log('getExecutionQueue');
+		var_dump($queue);
 
 		$head  = $this->populateTreeWithSelectStatementFromQueue(
 			$queue,
