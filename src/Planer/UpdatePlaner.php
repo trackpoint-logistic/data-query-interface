@@ -28,13 +28,15 @@ class UpdatePlaner extends SelectPlaner
 		$begin = $this->getEntryFeature($feature);
 
 		$queue = $this->getExecutionQueue($begin);
-		error_log('getExecutionQueue');
-		var_dump($queue);
 
-		$head  = $this->populateTreeWithSelectStatementFromQueue(
+		$head = $this->populateTreeWithSelectStatementFromQueue(
 			$queue,
 			new SelectStatement($this->resolver, $begin)
 		);
+
+		if (empty($queue)) {
+			return $head;
+		}
 
 		if ($begin->getData()->isEmpty() == false) {
 			$relation = clone current($queue);
