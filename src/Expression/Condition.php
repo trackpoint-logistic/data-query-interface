@@ -56,6 +56,17 @@ class Condition implements IteratorAggregate
 		return $this;
 	}
 
+
+	public function getImmutableExpressionConstantValue(): array
+	{
+		$result = [];
+		foreach ($this->immutableExpressions as $expresion) {
+			$result[$expresion->getName()] = $expresion->getConstant();
+		}
+		return $result;
+	}
+
+
 	public function getExpressionByName(string $name): ?Expression
 	{
 		return $this->expressions->get($name, null);
