@@ -4,7 +4,7 @@
 	"type": "library",
 	"require": {
 		"php": ">=7.4",
-		"php-ds/php-ds": "^1.4",
+		"php-ds/php-ds": ">=1.4",
 		"psr/log": "^1.0.1"
 	},
 	"autoload": {
