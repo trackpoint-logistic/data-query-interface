@@ -8,15 +8,20 @@ use Trackpoint\DataQueryInterface\DataStructure\BinarySearchTree;
 
 use Generator;
 
-
+/**
+ * Реализуем правое глубокое дерево, данные поднимаем справа, и читаем их
+ */
 class LeftJoin implements JoinInterface
 {
 	private SelectStatement $left;
 	private StatementInterface $right;
 	private $relation;
 
-	public function __construct(SelectStatement $left, StatementInterface $right, $relation)
-	{
+	public function __construct(
+        SelectStatement $left,
+        StatementInterface $right,
+        $relation
+    ){
 		$this->left     = $left;
 		$this->right    = $right;
 		$this->relation = $relation;

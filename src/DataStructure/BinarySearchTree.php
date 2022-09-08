@@ -67,8 +67,9 @@ class BinarySearchTree implements IteratorAggregate
 					break;
 				}
 			} else {
+                //Esli dublikat to proizvodim obedinenie dannih
+                $node->tuple = array_merge($node->tuple, $tuple);
 				break;
-				//Vozmozno oshibka dublikata ?
 			}
 		}
 

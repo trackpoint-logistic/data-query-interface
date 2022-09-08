@@ -9,7 +9,7 @@ use Trackpoint\DataQueryInterface\DataStructure\BinarySearchTree;
 
 use Generator;
 
-class LeftJoin implements JoinInterface
+class OuterJoin implements JoinInterface
 {
 
 	private SelectStatement $left;
