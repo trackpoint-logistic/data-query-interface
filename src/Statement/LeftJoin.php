@@ -37,24 +37,27 @@ class LeftJoin implements JoinInterface
 		return $this->right;
 	}
 
+    /**
+     * Правый датасет это то что я поднимаю снизу
+     * Левый это новый датасет что я добовляю
+     * @param Generator $right
+     * @return Generator
+     */
 	public function merge(Generator $right): Generator
 	{
 
 		$left = $this->left->fetch($this->left->getCondition());
 
 		$bst = new BinarySearchTree($this->relation);
-		$bst->fill($right);
+		$bst->fill($left);
 
-		foreach ($right as $right_tuple) {
+		foreach($right as $right_tuple){
 
-            foreach($left as $left_tuple){
-                if($bst->has($left_tuple[$this->relation])){
-                    $right_tuple = array_merge($left_tuple, $right_tuple);
-                }
-            }
+            $left_tuple = $bst->get($right_tuple[$this->relation]);
 
-            yield $right_tuple;
-
+            yield $left_tuple
+                ? array_merge($left_tuple, $right_tuple)
+                : $right_tuple;
 		}
 	}
 }

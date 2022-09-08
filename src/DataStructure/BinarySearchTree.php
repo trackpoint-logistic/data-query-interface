@@ -19,7 +19,7 @@ class BinarySearchTree implements IteratorAggregate
 	}
 
 
-	public function has($index)
+	public function get($index)
 	{
 		$node = $this->root;
 
@@ -29,19 +29,20 @@ class BinarySearchTree implements IteratorAggregate
 			} elseif ($index < $node->index) {
 				$node = $node->left;
 			} else {
-				return true;
+				return $node->date;
 			}
 		}
 
-		return false;
+		return null;
 	}
 
-	public function insert($index)
+	public function insert($tuple)
 	{
 		$node = $this->root;
+        $index = $tuple[$this->key];
 
 		if ($node == null) {
-			$this->root = new Node($index);
+			$this->root = new Node($index, $tuple);
 			return;
 		}
 
@@ -50,18 +51,19 @@ class BinarySearchTree implements IteratorAggregate
 				if ($node->right) {
 					$node = $node->right;
 				} else {
-					$node->right = new Node($index);
-					break;
+					$node->right = new Node($index, $tuple);
+                    return;
 				}
 			} elseif ($index < $node->index) {
 				if ($node->left) {
 					$node = $node->left;
 				} else {
-					$node->left = new Node($index);
-					break;
+					$node->left = new Node($index, $tuple);
+                    return;
 				}
 			} else {
-				break;
+                $node->data = array_merge($node->data, $tuple);
+				return;
 			}
 		}
 
@@ -72,7 +74,7 @@ class BinarySearchTree implements IteratorAggregate
 	{
 
 		foreach ($entity as $tuple) {
-			$this->insert($tuple[$this->key]);
+			$this->insert($tuple);
 		}
 
 		return $this;
