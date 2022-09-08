@@ -72,7 +72,7 @@ class BinarySearchTree implements IteratorAggregate
 	{
 
 		foreach ($entity as $tuple) {
-			$this->insert($tuple);
+			$this->insert($tuple[$this->key]);
 		}
 
 		return $this;
