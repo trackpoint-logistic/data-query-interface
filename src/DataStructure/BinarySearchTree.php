@@ -29,7 +29,7 @@ class BinarySearchTree implements IteratorAggregate
 			} elseif ($index < $node->index) {
 				$node = $node->left;
 			} else {
-				return $node->date;
+				return $node->data;
 			}
 		}
 
