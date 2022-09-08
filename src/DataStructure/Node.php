@@ -7,14 +7,12 @@ namespace Trackpoint\DataQueryInterface\DataStructure;
 class Node
 {
 	public int $index;
-	public array $tuple;
 
 	public $left;
 	public $right;
 
-	public function __construct(array $tuple, int $index)
+	public function __construct(int $index)
 	{
-		$this->tuple = $tuple;
 		$this->index = $index;
 	}
 }

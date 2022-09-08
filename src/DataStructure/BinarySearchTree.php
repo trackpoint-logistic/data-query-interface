@@ -19,7 +19,7 @@ class BinarySearchTree implements IteratorAggregate
 	}
 
 
-	public function search($index)
+	public function has($index)
 	{
 		$node = $this->root;
 
@@ -29,25 +29,19 @@ class BinarySearchTree implements IteratorAggregate
 			} elseif ($index < $node->index) {
 				$node = $node->left;
 			} else {
-				break;
+				return true;
 			}
 		}
 
-		if ($node === null) {
-			return null;
-		}
-
-		return $node->tuple;
+		return false;
 	}
 
-	public function insert($tuple)
+	public function insert($index)
 	{
 		$node = $this->root;
-		$index = $tuple[$this->key];
-
 
 		if ($node == null) {
-			$this->root = new Node($tuple, $index);
+			$this->root = new Node($index);
 			return;
 		}
 
@@ -56,19 +50,17 @@ class BinarySearchTree implements IteratorAggregate
 				if ($node->right) {
 					$node = $node->right;
 				} else {
-					$node->right = new Node($tuple, $index);
+					$node->right = new Node($index);
 					break;
 				}
 			} elseif ($index < $node->index) {
 				if ($node->left) {
 					$node = $node->left;
 				} else {
-					$node->left = new Node($tuple, $index);
+					$node->left = new Node($index);
 					break;
 				}
 			} else {
-                //Esli dublikat to proizvodim obedinenie dannih
-                $node->tuple = array_merge($node->tuple, $tuple);
 				break;
 			}
 		}

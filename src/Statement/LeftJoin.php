@@ -43,14 +43,18 @@ class LeftJoin implements JoinInterface
 		$left = $this->left->fetch($this->left->getCondition());
 
 		$bst = new BinarySearchTree($this->relation);
-		$bst->fill($left);
+		$bst->fill($right);
 
 		foreach ($right as $right_tuple) {
-			if (($left_tuple = $bst->search($right_tuple[$this->relation])) !== null) {
-				yield array_merge($left_tuple, $right_tuple);
-			} else {
-				yield $right_tuple;
-			}
+
+            foreach($left as $left_tuple){
+                if($bst->has($left_tuple[$this->relation])){
+                    $right_tuple = array_merge($left_tuple, $right_tuple);
+                }
+            }
+
+            yield $right_tuple;
+
 		}
 	}
 }
