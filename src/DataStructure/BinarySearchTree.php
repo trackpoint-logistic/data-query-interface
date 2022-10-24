@@ -111,7 +111,7 @@ class BinarySearchTree implements IteratorAggregate
 				$queue->push($node->right);
 			}
 
-			yield $node->tuple;
+			yield $node->data;
 		}
 	}
 }

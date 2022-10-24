@@ -9,7 +9,8 @@ use Trackpoint\DataQueryInterface\DataStructure\BinarySearchTree;
 use Generator;
 
 /**
- * Реализуем правое глубокое дерево, данные поднимаем справа, и читаем их
+ * Первое понятие правого и левого объединения тут перепутано
+ * Левый работает как правый
  */
 class LeftJoin implements JoinInterface
 {
@@ -55,6 +56,9 @@ class LeftJoin implements JoinInterface
 
             $left_tuple = $bst->get($right_tuple[$this->relation]);
 
+			/**
+			 * Важно заметить что новое значение не перезаписывает старое
+			 */
             yield $left_tuple
                 ? array_merge($left_tuple, $right_tuple)
                 : $right_tuple;
