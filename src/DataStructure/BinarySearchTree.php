@@ -114,4 +114,21 @@ class BinarySearchTree implements IteratorAggregate
 			yield $node->data;
 		}
 	}
+
+	public function getSortedIterator():Generator{
+
+		function dive($node){
+			if ($node->left) {
+				yield from dive($node->left);
+			}
+
+			yield $node->data;
+
+			if ($node->right) {
+				yield from dive($node->right);
+			}
+		}
+
+		yield from dive($this->root);
+	}
 }
