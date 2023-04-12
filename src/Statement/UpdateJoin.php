@@ -6,6 +6,9 @@ namespace Trackpoint\DataQueryInterface\Statement;
 
 use Generator;
 
+/**
+ * @deprecated
+ */
 class UpdateJoin implements JoinInterface
 {
 	private UpdateStatement $left;
@@ -17,12 +20,12 @@ class UpdateJoin implements JoinInterface
 		$this->right    = $right;
 	}
 
-	public function getLeftInterface(): StatementInterface
+	public function getLeftNode(): StatementInterface
 	{
 		return $this->left;
 	}
 
-	public function getRightInterface(): StatementInterface
+	public function getRightNode(): StatementInterface
 	{
 		return $this->right;
 	}

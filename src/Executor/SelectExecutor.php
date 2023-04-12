@@ -4,34 +4,80 @@ declare(strict_types=1);
 
 namespace Trackpoint\DataQueryInterface\Executor;
 
+use Trackpoint\DataQueryInterface\DataStructure\BinarySearchTree;
+use Trackpoint\DataQueryInterface\Statement\InnerJoin;
 use Trackpoint\DataQueryInterface\Statement\JoinInterface;
 use Trackpoint\DataQueryInterface\Statement\SelectStatement;
 use Trackpoint\DataQueryInterface\Statement\StatementInterface;
-
-use Psr\Log\LoggerInterface;
-
 use Generator;
 
 class SelectExecutor implements ExecutorInterface
 {
-	private LoggerInterface $logger;
 
-	public function __construct(LoggerInterface $logger)
-	{
-		$this->logger = $logger;
-	}
-
-	private function proceed(StatementInterface $node): Generator
+	private function proceed(
+		StatementInterface $node
+	): Generator
 	{
 		if ($node instanceof SelectStatement) {
 			yield from $node->fetch($node->getCondition());
 		} else if ($node instanceof JoinInterface) {
-			yield from $node->merge(
-				$this->proceed($node->getRightInterface())
-			);
+
+			$right = $this->proceed(
+				$node->getRightNode());
+
+			$left = $node->getLeftNode()
+				->fetch($node->getLeftNode()->getCondition());
+
+			$bst = new BinarySearchTree($node->getRelationKey());
+			$bst->fill($left);
+
+			yield from $node instanceof InnerJoin
+				? $this->getInnerJoin(
+					$right,
+					$bst,
+					$node->getRelationKey())
+
+				: $this->getOuterJoin(
+					$right,
+					$bst,
+					$node->getRelationKey());
 		}
 	}
 
+	private function getOuterJoin(
+		Generator $right,
+		BinarySearchTree $left,
+		string $key
+	): Generator{
+		foreach($right as $right_tuple){
+
+			$left_tuple = $left->get($right_tuple[$key]) ?? [];
+
+			/**
+			 * Важно заметить что новое значение не перезаписывает старое
+			 */
+			yield array_merge($left_tuple, $right_tuple);
+		}
+
+	}
+
+	private function getInnerJoin(
+		Generator $right,
+		BinarySearchTree $left,
+		string $key
+	): Generator{
+		foreach($right as $right_tuple){
+			/**
+			 * Важно заметить что новое значение не перезаписывает старое
+			 */
+			$left_tuple = $left->get($right_tuple[$key]);
+			if(empty($left_tuple)){
+				continue;
+			}
+
+			yield array_merge($left_tuple, $right_tuple);
+		}
+	}
 
 	public function execute(StatementInterface $tree): Generator
 	{

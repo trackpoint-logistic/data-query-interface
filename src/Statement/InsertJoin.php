@@ -4,44 +4,42 @@ declare(strict_types=1);
 
 namespace Trackpoint\DataQueryInterface\Statement;
 
-use Generator;
-
+/**
+ * @deprecated
+ */
 class InsertJoin implements JoinInterface
 {
-	private InsertStatement $left;
+	private StatementInterface $left;
 	private StatementInterface $right;
+	private string $relation;
 
-	public function __construct(InsertStatement $left, StatementInterface $right)
-	{
+	public function __construct(
+		StatementInterface $left,
+		StatementInterface $right,
+		string $relation
+	){
+
 		$this->left     = $left;
 		$this->right    = $right;
+		$this->relation = $relation;
 	}
 
-	public function getLeftInterface(): StatementInterface
+	public function getLeftNode(): StatementInterface
 	{
 		return $this->left;
 	}
 
-	public function getRightInterface(): StatementInterface
+	public function getRightNode(): StatementInterface
 	{
 		return $this->right;
 	}
 
-	public function merge(Generator $right): Generator
+	/**
+	 * @return string
+	 */
+	public function getRelationKey(): string
 	{
-		$data = $this->left->getData()->toArray();
-
-		foreach ($right as $right_tuple) {
-
-			foreach ($data as $name => $value) {
-				$data[$name] = $value ?? $right_tuple[$name];
-			}
-
-			$left = $this->left->insert($data);
-
-			foreach ($left as $left_tuple) {
-				yield array_merge($right_tuple, $left_tuple);
-			}
-		}
+		return $this->relation;
 	}
+
 }

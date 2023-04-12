@@ -9,31 +9,30 @@ use Trackpoint\DataQueryInterface\DataStructure\BinarySearchTree;
 use Generator;
 
 /**
- * Первое понятие правого и левого объединения тут перепутано
- * Левый работает как правый
+ * @deprecated
  */
 class LeftJoin implements JoinInterface
 {
 	private SelectStatement $left;
 	private StatementInterface $right;
-	private $relation;
+	private string $relation;
 
 	public function __construct(
         SelectStatement $left,
         StatementInterface $right,
-        $relation
+        string $relation
     ){
 		$this->left     = $left;
 		$this->right    = $right;
 		$this->relation = $relation;
 	}
 
-	public function getLeftInterface(): StatementInterface
+	public function getLeftNode(): StatementInterface
 	{
 		return $this->left;
 	}
 
-	public function getRightInterface(): StatementInterface
+	public function getRightNode(): StatementInterface
 	{
 		return $this->right;
 	}
@@ -44,7 +43,9 @@ class LeftJoin implements JoinInterface
      * @param Generator $right
      * @return Generator
      */
-	public function merge(Generator $right): Generator
+	public function merge(
+		Generator $right
+	): Generator
 	{
 
 		$left = $this->left->fetch($this->left->getCondition());

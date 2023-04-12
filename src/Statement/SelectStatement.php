@@ -21,8 +21,10 @@ class SelectStatement implements StatementInterface
 
 	protected SelectInterface $interface;
 
-	public function __construct(InterfaceResolver $resolver, InterfaceFeature $feature)
-	{
+	public function __construct(
+		InterfaceResolver $resolver,
+		InterfaceFeature $feature
+	){
 		$this->resolver = $resolver;
 
 		$this->name      = $feature->getName();
