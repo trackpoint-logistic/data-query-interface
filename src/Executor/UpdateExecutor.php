@@ -46,6 +46,7 @@ class UpdateExecutor implements ExecutorInterface
 
 				if($left->valid() == false){
 					yield $right_tuple;
+					continue;
 				}
 
 				foreach ($left as $left_tuple) {
