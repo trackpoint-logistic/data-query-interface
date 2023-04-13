@@ -5,9 +5,7 @@ namespace Trackpoint\DataQueryInterface\Executor;
 use Exception;
 use Generator;
 use Trackpoint\DataQueryInterface\Expression\Expression;
-use Trackpoint\DataQueryInterface\Statement\DeleteInterface;
 use Trackpoint\DataQueryInterface\Statement\DeleteStatement;
-use Trackpoint\DataQueryInterface\Statement\InsertStatement;
 use Trackpoint\DataQueryInterface\Statement\JoinInterface;
 use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 

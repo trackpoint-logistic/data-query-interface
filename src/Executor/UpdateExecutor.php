@@ -71,7 +71,6 @@ class UpdateExecutor implements ExecutorInterface
 		}
 	}
 
-
 	/**
 	 * @throws Exception
 	 */
