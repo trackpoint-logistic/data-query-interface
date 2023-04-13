@@ -1,32 +1,34 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Trackpoint\DataQueryInterface\Executor;
-
-
-use Trackpoint\DataQueryInterface\Expression\Expression;
-use Trackpoint\DataQueryInterface\Statement\JoinInterface;
-use Trackpoint\DataQueryInterface\Statement\UpdateStatement;
-use Trackpoint\DataQueryInterface\Statement\SelectStatement;
-use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 
 use Exception;
 use Generator;
+use Trackpoint\DataQueryInterface\Expression\Expression;
+use Trackpoint\DataQueryInterface\Statement\DeleteInterface;
+use Trackpoint\DataQueryInterface\Statement\DeleteStatement;
+use Trackpoint\DataQueryInterface\Statement\InsertStatement;
+use Trackpoint\DataQueryInterface\Statement\JoinInterface;
+use Trackpoint\DataQueryInterface\Statement\StatementInterface;
 
-class UpdateExecutor implements ExecutorInterface
+class DeleteExecutor implements ExecutorInterface
 {
 
 	private function proceed(
 		StatementInterface $node
 	): Generator
 	{
-		if ($node instanceof JoinInterface) {
+		if ($node instanceof DeleteStatement) {
+			yield from $node->delete(
+				$node->getCondition());
+
+		} else if ($node instanceof JoinInterface) {
 
 			$right = $this->proceed(
 				$node->getRightNode());
 
 			foreach ($right as $right_tuple) {
+
 				/**
 				 * По идее планировщик должен создавать дополнительные експрешены что бы передавать их в стейтмент
 				 */
@@ -58,19 +60,8 @@ class UpdateExecutor implements ExecutorInterface
 						$right_tuple);
 				}
 			}
-		} else if ($node instanceof SelectStatement) {
-
-			yield from $node->fetch($node->getCondition());
-
-		} else if ($node instanceof UpdateStatement) {
-			yield from $node->update(
-				$node->getCondition(),
-				$node->getData()->toArray());
-		} else {
-			throw new Exception(var_export($node, true));
 		}
 	}
-
 
 	/**
 	 * @throws Exception
