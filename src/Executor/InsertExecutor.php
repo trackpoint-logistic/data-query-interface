@@ -11,8 +11,6 @@ use Generator;
 
 class InsertExecutor implements ExecutorInterface
 {
-
-
 	private function proceed(
 		StatementInterface $node
 	): Generator
@@ -26,15 +24,13 @@ class InsertExecutor implements ExecutorInterface
 			$right = $this->proceed(
 				$node->getRightNode());
 
-			$data = $node->getRightNode()
+			$data = $node->getLeftNode()
 				->getData()
 				->toArray();
 
 			foreach ($right as $right_tuple) {
 
-				foreach ($data as $name => $value) {
-					$data[$name] = $value ?? $right_tuple[$name];
-				}
+				$data[$node->getRelationKey()] = $right_tuple[$node->getRelationKey()];
 
 				$left = $node->getLeftNode()
 					->insert($data);
@@ -47,7 +43,6 @@ class InsertExecutor implements ExecutorInterface
 			}
 		}
 	}
-
 
 	public function execute(StatementInterface $tree): Generator
 	{
