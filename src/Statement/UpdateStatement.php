@@ -55,9 +55,14 @@ class UpdateStatement implements StatementInterface
 		return $this->data;
 	}
 
-	//abstract public function update(Condition $condition, array $data): Generator;
-	public function update(Condition $condition, array $data): Generator
+	public function update(
+		Condition $condition,
+		array $data
+	): Generator
 	{
-		yield from $this->interface->update($condition, $data);
+		yield from $this->interface->update(
+			$condition,
+			$this->returning->toArray(),
+			$data);
 	}
 }

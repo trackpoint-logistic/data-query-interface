@@ -19,14 +19,16 @@ class SelectExecutor implements ExecutorInterface
 	): Generator
 	{
 		if ($node instanceof SelectStatement) {
-			yield from $node->fetch($node->getCondition());
+			yield from $node->fetch(
+				$node->getCondition());
+
 		} else if ($node instanceof JoinInterface) {
 
 			$right = $this->proceed(
 				$node->getRightNode());
 
-			$left = $node->getLeftNode()
-				->fetch($node->getLeftNode()->getCondition());
+			$left = $this->proceed(
+					$node->getLeftNode());
 
 			$bst = new BinarySearchTree($node->getRelationKey());
 			$bst->fill($left);

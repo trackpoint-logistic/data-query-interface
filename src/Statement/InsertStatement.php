@@ -48,9 +48,10 @@ class InsertStatement implements StatementInterface
 		return $this->data;
 	}
 
-	//abstract public function update(Condition $condition, array $data): Generator;
 	public function insert(array $data): Generator
 	{
-		yield from $this->interface->insert($data);
+		yield from $this->interface->insert(
+			$this->returning->toArray(),
+			$data);
 	}
 }

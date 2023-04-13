@@ -10,5 +10,8 @@ use Generator;
 
 interface SelectInterface extends StatementInterface
 {
-	public function fetch(Condition $condition): Generator;
+	public function fetch(
+		Condition $condition,
+		array $returning
+	): Generator;
 }

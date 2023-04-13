@@ -8,6 +8,7 @@ use Trackpoint\DataQueryInterface\Expression\Expression;
 use Trackpoint\DataQueryInterface\Statement\DeleteStatement;
 use Trackpoint\DataQueryInterface\Statement\JoinInterface;
 use Trackpoint\DataQueryInterface\Statement\StatementInterface;
+use Ds\Set;
 
 class DeleteExecutor implements ExecutorInterface
 {
@@ -19,7 +20,6 @@ class DeleteExecutor implements ExecutorInterface
 		if ($node instanceof DeleteStatement) {
 			yield from $node->delete(
 				$node->getCondition());
-
 		} else if ($node instanceof JoinInterface) {
 
 			$right = $this->proceed(

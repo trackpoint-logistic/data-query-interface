@@ -8,5 +8,8 @@ use Generator;
 
 interface InsertInterface extends StatementInterface
 {
-	public function insert(array $data): Generator;
+	public function insert(
+		array $returning,
+		array $data
+	): Generator;
 }

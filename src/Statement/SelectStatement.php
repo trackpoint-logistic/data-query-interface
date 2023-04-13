@@ -49,8 +49,12 @@ class SelectStatement implements StatementInterface
 		return $this->returning;
 	}
 
-	public function fetch(Condition $condition): Generator
+	public function fetch(
+		Condition $condition
+	): Generator
 	{
-		yield from $this->interface->fetch($condition);
+		yield from $this->interface->fetch(
+			$condition,
+			$this->returning->toArray());
 	}
 }
